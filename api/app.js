@@ -66,7 +66,7 @@ export function crearApp({ pool, registro = new client.Registry() }) {
     try {
       // COUNT(*) llega como bigint (string en pg): el cast a int devuelve un número.
       const { rows } = await pool.query("SELECT COUNT(*)::int AS total FROM mensajes");
-      res.json({ count: rows[0].total });
+      res.json({ total: rows[0].total });
     } catch (e) { next(e); }
   });
   
