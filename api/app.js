@@ -76,4 +76,3 @@ export function crearApp({ pool, registro = new client.Registry() }) {
 
   return app;
 }
-const variableRotaSinUsar = 123;
