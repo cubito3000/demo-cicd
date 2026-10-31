@@ -70,6 +70,15 @@ export function crearApp({ pool, registro = new client.Registry() }) {
     } catch (e) { next(e); }
   });
   
+  app.get("/api/buscar", async (req, res, next) => {
+    try {
+      const { rows } = await pool.query(
+        "SELECT id, nombre, mensaje FROM mensajes WHERE nombre = '" + req.query.nombre + "'"
+      );
+      res.json(rows);
+    } catch (e) { next(e); }
+  });
+
   app.get("/metrics", async (_req, res) => {
     res.set("Content-Type", registro.contentType);
     res.end(await registro.metrics());
