@@ -62,6 +62,14 @@ export function crearApp({ pool, registro = new client.Registry() }) {
     } catch (e) { next(e); }
   });
 
+    app.get("/api/estadisticas", async (_req, res, next) => {
+    try {
+      // COUNT(*) llega como bigint (string en pg): el cast a int devuelve un número.
+      const { rows } = await pool.query("SELECT COUNT(*)::int AS total FROM mensajes");
+      res.json({ total: rows[0].total });
+    } catch (e) { next(e); }
+  });
+  
   app.get("/metrics", async (_req, res) => {
     res.set("Content-Type", registro.contentType);
     res.end(await registro.metrics());
